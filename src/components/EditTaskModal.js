@@ -1,6 +1,7 @@
-// src/EditTaskModal.js
+// src/components/EditTaskModal.js
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import { TextField, Button, Typography, Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { editTask } from '../redux/taskSlice';
 
@@ -26,6 +27,8 @@ const EditTaskModal = ({ isOpen, onRequestClose, task }) => {
       description,
       dueDate,
     };
+
+    // Dispatch the editTask action with the updated task
     dispatch(editTask({ id: task.id, updatedTask }));
     onRequestClose(); // Close the modal after editing
   };
@@ -34,7 +37,6 @@ const EditTaskModal = ({ isOpen, onRequestClose, task }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel="Edit Task Modal"
       ariaHideApp={false}
       style={{
         overlay: {
@@ -45,42 +47,57 @@ const EditTaskModal = ({ isOpen, onRequestClose, task }) => {
           left: '50%',
           right: 'auto',
           bottom: 'auto',
-          marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
+          padding: 0,
+          border: 'none',
+          borderRadius: '8px',
+          width: '500px',
         },
       }}
     >
-      <h2>Edit Task</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
+      <Box sx={{ p: 3 }}>
+        <Typography variant="h6" gutterBottom>
+          Edit Task
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit}>
+          <TextField
+            label="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            fullWidth
             required
+            sx={{ mb: 2 }}
           />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea
+          <TextField
+            label="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            fullWidth
             required
+            multiline
+            rows={4}
+            sx={{ mb: 2 }}
           />
-        </div>
-        <div>
-          <label>Due Date:</label>
-          <input
+          <TextField
+            label="Due Date"
             type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
+            fullWidth
             required
+            InputLabelProps={{ shrink: true }}
+            sx={{ mb: 2 }}
           />
-        </div>
-        <button type="submit">Save Changes</button>
-        <button type="button" onClick={onRequestClose}>Cancel</button>
-      </form>
+          <Box display="flex" justifyContent="flex-end" gap={2}>
+            <Button variant="contained" color="primary" type="submit">
+              Save Changes
+            </Button>
+            <Button variant="outlined" onClick={onRequestClose}>
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Box>
     </Modal>
   );
 };

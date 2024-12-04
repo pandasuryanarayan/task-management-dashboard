@@ -1,10 +1,11 @@
-// src/DeleteConfirmationModal.js
+// src/components/DeleteConfirmationModal.js
 import React from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { deleteTask } from '../redux/taskSlice';
+import { Button, Typography, Box } from '@mui/material';
 
-const DeleteConfirmationModal = ({ isOpen, onRequestClose, taskId }) => {
+const DeleteConfirmationModal = ({ isOpen, onRequestClose, taskId}) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
@@ -16,7 +17,6 @@ const DeleteConfirmationModal = ({ isOpen, onRequestClose, taskId }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel="Confirmation Modal"
       ariaHideApp={false}
       style={{
         overlay: {
@@ -27,15 +27,30 @@ const DeleteConfirmationModal = ({ isOpen, onRequestClose, taskId }) => {
           left: '50%',
           right: 'auto',
           bottom: 'auto',
-          marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
+          padding: 0,
+          border: 'none',
+          borderRadius: '8px',
+          width: '400px',
         },
       }}
     >
-      <h2>Confirm Deletion</h2>
-      <p>Are you sure you want to delete this task?</p>
-      <button onClick={handleDelete}>Yes, Delete</button>
-      <button onClick={onRequestClose}>Cancel</button>
+      <Box sx={{ p: 3, textAlign: 'center' }}>
+        <Typography variant="h6" gutterBottom>
+          Confirm Deletion
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 3 }}>
+          Are you sure you want to delete this task? This action cannot be undone.
+        </Typography>
+        <Box display="flex" justifyContent="center" gap={2}>
+          <Button variant="contained" color="error" onClick={handleDelete}>
+            Yes, Delete
+          </Button>
+          <Button variant="outlined" onClick={onRequestClose}>
+            Cancel
+          </Button>
+        </Box>
+      </Box>
     </Modal>
   );
 };
