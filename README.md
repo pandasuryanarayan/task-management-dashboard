@@ -18,8 +18,8 @@ A modern task management dashboard with drag-and-drop functionality, allowing us
 ## Setup & Installation
 
 ### Prerequisites
-- Node.js (version 14 or above)
-- npm (version 6 or above)
+- Node.js (v22.12.0 LTS and above)
+- npm (v10.9.1 and above)
 
 ### Steps
 
