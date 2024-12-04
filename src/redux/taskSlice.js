@@ -14,18 +14,18 @@ const taskSlice = createSlice({
     },
     editTask: (state, action) => {
       const { id, updatedTask } = action.payload;
-      const index = state.tasks.findIndex(task => task.id === id);
+      const index = state.tasks.findIndex((task) => task.id === id);
       if (index !== -1) {
-        state.tasks[index] = updatedTask;
+        state.tasks[index] = updatedTask; // Update the task in the array
       }
     },
     deleteTask: (state, action) => {
-      state.tasks = state.tasks.filter(task => task.id !== action.payload);
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
-    toggleComplete: (state, action) => {
-      const task = state.tasks.find(task => task.id === action.payload);
-      if (task) {
-        task.completed = !task.completed;
+    markTaskCompleted: (state, action) => {
+      const index = state.tasks.findIndex((task) => task.id === action.payload);
+      if (index !== -1) {
+        state.tasks[index].completed = !state.tasks[index].completed; // Toggle completed status
       }
     },
     setFilter: (state, action) => {
@@ -40,5 +40,13 @@ const taskSlice = createSlice({
   },
 });
 
-export const { addTask, editTask, deleteTask, toggleComplete, setFilter, setSearchQuery, reorderTasks } = taskSlice.actions;
+export const {
+  addTask,
+  editTask,
+  deleteTask,
+  markTaskCompleted,
+  setFilter,
+  setSearchQuery,
+  reorderTasks,
+} = taskSlice.actions;
 export default taskSlice.reducer;
