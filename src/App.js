@@ -1,20 +1,21 @@
 // src/App.js
 import React from 'react';
-import TaskForm from './components/TaskForm';
-import TaskList from './components/TaskList';
-import TaskFilter from './components/TaskFilter';
-import SearchInput from './components/SearchInput';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import Sidebar from './components/Sidebar';
+import Dashboard from './components/Dashboard';
+import './App.css';
 
 const App = () => {
   return (
-    <div>
-      <h1>Task Management Dashboard</h1>
-      <TaskForm />
-      <TaskFilter />
-      <SearchInput />
-      <TaskList />
-    </div>
+    <Provider store={store}>
+      <div className="app-container">
+        <Sidebar />
+        <Dashboard />
+      </div>
+    </Provider>
   );
 };
 
 export default App;
+
